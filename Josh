@@ -39,7 +39,7 @@ int main (void)
         printf("Main Menu\n");
         printf("1. Convert Binary to Decimal\n");
         printf("2. Save to a file\n");
-        printf("3. case 3\n");
+        printf("3. Select or Create the First Generation\n");
         printf("0. Quit.\n");
         scanf("%d",&option);
 
@@ -48,16 +48,17 @@ int main (void)
         {
 
             case 1:
-                printf("Converting binary to deciaml...");
+                printf("Converting binary to decimal...");
                 binaryToInteger();
                 break;
 
             case 2:
-                printf("case 2");
+                printf("Saving the output to 'OutputFile'... ");
+                saveOutput ()
                 break;
 
             case 3:
-                printf("case 3");
+                printf("Select or Create the First Generation");
                 break;
 
             case 0:
@@ -101,21 +102,17 @@ int binaryToInteger()
 
 
 //This function should save the output of your program to a text file on disk, 
-int saveOutput (<Datastructure> *<name of struct>)
+int saveOutput ()
 {
 
-	// check that we have a pointer to a valid doubly-linked list
-	if (<name of struct> == NULL)
-		return INVALID_INPUT_PARAMETER;
+	//if (<name of array> == NULL)
+	//	printf("An error occured.\n");
 
-	char filename[];
-
-	printf("Its decimal equivalent is = %ld \n", decimalNumber);
-	scanf("%d",&filename);
+	printf("Please enter a name for the file you want to save the output as: \n");
+	
 
 	FILE *fp;
-	MP3Track *temp = listPtr->head;
-	fp = fopen(filename, "w");
+	fp = fopen(OutputFile, "w");
 
 
 	if (fp !=NULL)
@@ -123,35 +120,36 @@ int saveOutput (<Datastructure> *<name of struct>)
 		
 		char c ='#';
 		char c2 = '\n';
-
-		while(temp != NULL)
+/*
+		while(<array that we're using> != NULL)
 		{
-		//<track-name>#<running-time>#<newline>
+		
 
 		//write the trackName to the file	
-		fputs(temp->trackName, fp);
+		//fputs(temp->trackName, fp);
 		//write #
 		fputc(c,fp);
 		//write trackLength to the file
-		fprintf(fp, "%d", temp->trackLength);
+		//fprintf(fp, "%d", temp->trackLength);
 		//write #
 		fputc(c,fp);
 		//new line
 		fputc(c2, fp);
 
-		temp= temp->next;
+		//temp= temp->next;
 
 
 		}
-	
+*/
+
 	}
 
 	//close file
 	fclose(fp);
 
-	//free the memory that holds 'temp'
-	free(temp);
+}
 
-	return SUCCESS;
+int ()
+{
 
 }
