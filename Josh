@@ -1,0 +1,157 @@
+/* 
+Task allocation:
+Josh: menu, binaryToDecimal, 
+		saving the output of your program to a text file on disk, 
+		Allow the user to select, or create, the first generation
+
+Luke: DecimalToBinary, 
+		base code, 
+		Allow the user to select different lengths of the first generation, and to select different numbers of generations to produce. 
+		other rules than 30
+
+Fergus: 
+		Loading saved files, 
+		Write your automata out to a text file so that you can look at the results once the program has completed. 
+		Wrap the ends of your automata array around so that the right-hand end continues onto the left-hand end and vice-versa.
+
+*/
+
+
+
+
+#include <stdio.h>
+
+
+int binaryToInteger();
+
+int main (void)
+{
+    int option;
+
+    printf("\n");
+    printf("        Welcome to Cellular Automata\n");
+    printf("------------------------------------------\n\n");
+
+
+    do
+    {
+        printf("Please enter an option from the main menu: \n");
+        printf("Main Menu\n");
+        printf("1. Convert Binary to Decimal\n");
+        printf("2. Save to a file\n");
+        printf("3. case 3\n");
+        printf("0. Quit.\n");
+        scanf("%d",&option);
+
+
+        switch(option)
+        {
+
+            case 1:
+                printf("Converting binary to deciaml...");
+                binaryToInteger();
+                break;
+
+            case 2:
+                printf("case 2");
+                break;
+
+            case 3:
+                printf("case 3");
+                break;
+
+            case 0:
+                printf("Goodbye!\n");
+                break;
+
+            default:
+                printf("Invalid input, please enter a number between ");
+                break;
+        }
+
+    }while(option != 0);
+
+}
+
+int binaryToInteger()
+{
+    long num;
+    long binaryNumber;
+    long decimalNumber = 0;
+    int baseMultiplier = 1;
+    int remainder;
+
+    printf("Enter a binary number\n");
+    scanf("%ld", &num); 
+    binaryNumber = num;
+
+    while (num > 0)
+    {
+        remainder = num % 10;
+        decimalNumber = decimalNumber + remainder * baseMultiplier;
+        num = num / 10 ;
+        baseMultiplier = baseMultiplier * 2;
+    }
+
+    printf("The Binary number is = %ld \n", binaryNumber);
+    printf("Its decimal equivalent is = %ld \n", decimalNumber);
+
+}
+
+
+
+//This function should save the output of your program to a text file on disk, 
+int saveOutput (<Datastructure> *<name of struct>)
+{
+
+	// check that we have a pointer to a valid doubly-linked list
+	if (<name of struct> == NULL)
+		return INVALID_INPUT_PARAMETER;
+
+	char filename[];
+
+	printf("Its decimal equivalent is = %ld \n", decimalNumber);
+	scanf("%d",&filename);
+
+	FILE *fp;
+	MP3Track *temp = listPtr->head;
+	fp = fopen(filename, "w");
+
+
+	if (fp !=NULL)
+	{
+		
+		char c ='#';
+		char c2 = '\n';
+
+		while(temp != NULL)
+		{
+		//<track-name>#<running-time>#<newline>
+
+		//write the trackName to the file	
+		fputs(temp->trackName, fp);
+		//write #
+		fputc(c,fp);
+		//write trackLength to the file
+		fprintf(fp, "%d", temp->trackLength);
+		//write #
+		fputc(c,fp);
+		//new line
+		fputc(c2, fp);
+
+		temp= temp->next;
+
+
+		}
+	
+	}
+
+	//close file
+	fclose(fp);
+
+	//free the memory that holds 'temp'
+	free(temp);
+
+	return SUCCESS;
+
+}
