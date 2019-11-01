@@ -16,7 +16,63 @@ Fergus:
 
 */
 
+int indexRight(int index, int generationSize){
+        if(index == generationSize-1){
+            return 0;
+        }
+        else{
+            return index+1;
+        }
+    }
 
+    int indexLeft(int index, int generationSize){
+        if(index == 0){
+            return generationSize-1;
+        }
+        else{
+            return index-1;
+        }
+    }
+
+    void createNewGen(char[] parentGen, int generationSize){
+        char[generationSize] currentGen; 
+        if(parentGen == NULL){
+            printf("error, null parent generation");
+        }
+        for(int i = 0; i <= generationSize; i++){
+            if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 1){
+                currentGen[i]=0;
+            }
+            if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 0){
+                currentGen[i]=0;
+            }
+            if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 1){
+                currentGen[i]=0;
+            }
+            if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 0){
+                currentGen[i]=1;
+            }
+            if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 0){
+                currentGen[i]=1;
+            }
+            if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 1){
+                currentGen[i]=1;
+            }
+            if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 0){
+                currentGen[i]=0;
+            }
+            if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 1){
+                currentGen[i]=1;
+            }
+        }
+        printArray(generationSize, currentGen[]);
+    }
+
+    void printArray(int generationSizel, char [] currentGen){
+        for(i==0;i<generationSize;i++){
+            printf("%c", currentGen[i]);
+        }
+    }
 
 
 #include <stdio.h>
