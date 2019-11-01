@@ -1,8 +1,8 @@
 /* 
 Task allocation:
-Josh: menu, binaryToDecimal, 
+Josh: menu, binaryToDecimal, Allow the user to select, or create, the first generation,
 		saving the output of your program to a text file on disk, 
-		Allow the user to select, or create, the first generation
+		
 
 Luke: DecimalToBinary, 
 		base code, 
@@ -23,6 +23,8 @@ Fergus:
 
 
 int binaryToInteger();
+int customParent();
+int saveOutput();
 
 int main (void)
 {
@@ -48,17 +50,18 @@ int main (void)
         {
 
             case 1:
-                printf("Converting binary to decimal...");
+                printf("Converting binary to decimal...\n");
                 binaryToInteger();
                 break;
 
             case 2:
-                printf("Saving the output to 'OutputFile'... ");
-                saveOutput ()
+                printf("Saving the output to 'OutputFile'...\n ");
+               // saveOutput();
                 break;
 
             case 3:
-                printf("Select or Create the First Generation");
+                printf("Select or Create the First Generation\n");
+                customParent();
                 break;
 
             case 0:
@@ -66,7 +69,7 @@ int main (void)
                 break;
 
             default:
-                printf("Invalid input, please enter a number between ");
+                printf("Invalid input, please enter a number between \n");
                 break;
         }
 
@@ -120,8 +123,8 @@ int saveOutput ()
 		
 		char c ='#';
 		char c2 = '\n';
-/*
-		while(<array that we're using> != NULL)
+
+		while(//<array that we're using> != NULL)
 		{
 		
 
@@ -140,7 +143,7 @@ int saveOutput ()
 
 
 		}
-*/
+
 
 	}
 
@@ -149,7 +152,40 @@ int saveOutput ()
 
 }
 
-int ()
-{
 
+int customParent()
+{
+	int customParentGenSize;
+	printf("Please enter the size of the custom parent generation you would like: \n");
+	scanf("%d", &customParentGenSize); 
+
+	int parent[customParentGenSize];
+
+	for(int i=0; i<customParentGenSize; i++)
+	{
+		int customInput;
+
+		printf("Please enter a '1' or '0' to add into your parent generation: \n");
+		scanf("%d", &customInput); 
+
+		if (customInput==0 || customInput==1)
+		{
+			parent[i] = customInput;
+		}
+
+		else
+		{
+			printf("Invalid input please wite '1' or '0' \n");
+			i--;
+		}
+	}
+
+	printf("You typed: \n");
+	for(int i=0; i<customParentGenSize; i++)
+	{
+		printf("%d", parent[i]);
+	}
+	printf("\n");
+
+	//OY LUKE, YOU MIGHT NEED A RETURN STATEMENT HERE TO IMPLEMENT THIS INTO THE BASE XOXO
 }
