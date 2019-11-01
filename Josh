@@ -34,38 +34,35 @@ int indexRight(int index, int generationSize){
         }
     }
 
-    void createNewGen(char[] parentGen, int generationSize){
+        int checkRules(char[] parentGen, int generationSize){
         char[generationSize] currentGen; 
         if(parentGen == NULL){
             printf("error, null parent generation");
         }
-        for(int i = 0; i <= generationSize; i++){
-            if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 1){
-                currentGen[i]=0;
-            }
-            if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 0){
-                currentGen[i]=0;
-            }
-            if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 1){
-                currentGen[i]=0;
-            }
-            if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 0){
-                currentGen[i]=1;
-            }
-            if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 0){
-                currentGen[i]=1;
-            }
-            if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 1){
-                currentGen[i]=1;
-            }
-            if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 0){
-                currentGen[i]=0;
-            }
-            if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 1){
-                currentGen[i]=1;
-            }
+        if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 1){
+            return 1;
         }
-        printArray(generationSize, currentGen[]);
+        if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 0){
+            return 2;
+        }
+        if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 1){
+            return 3;
+        }
+        if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 0){
+            return 4;
+        }   
+        if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 1){
+            return 5;
+        }
+        if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 0){
+            return 6;
+        }
+        if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 1){
+            return 7;
+        }
+        if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 0){
+            return 8;
+        }
     }
 
     void printArray(int generationSizel, char [] currentGen){
