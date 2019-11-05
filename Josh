@@ -1,33 +1,99 @@
 /* 
 Task allocation:
 Josh: menu, binaryToDecimal, Allow the user to select, or create, the first generation,
-		saving the output of your program to a text file on disk, 
-		
+        saving the output of your program to a text file on disk, 
+        
 
 Luke: DecimalToBinary, 
-		base code, 
-		Allow the user to select different lengths of the first generation, and to select different numbers of generations to produce. 
-		other rules than 30
+        base code, 
+        Allow the user to select different lengths of the first generation, and to select different numbers of generations to produce. 
+        other rules than 30
 
 Fergus: 
-		Loading saved files, 
-		Write your automata out to a text file so that you can look at the results once the program has completed. 
-		Wrap the ends of your automata array around so that the right-hand end continues onto the left-hand end and vice-versa.
+        Loading saved files, 
+        Write your automata out to a text file so that you can look at the results once the program has completed. 
+        Wrap the ends of your automata array around so that the right-hand end continues onto the left-hand end and vice-versa.
 
 */
 
 #include <stdio.h>
+int checkRules();
+int binaryToInteger();
+int customParent();
+int saveOutput();
+
 
 int generateNewGen (int generationSize){
-    char *pParent = customParent();
-    char childGen [sizeOf(pParent)];
+    bool chooseParentSize;
+    bool chooseParentPopulation;
+    if(chooseParentSize = true){
+        int parent[customParentGenSize];
+        for(int i=0; i<customParentGenSize; i++)
+        {
+            int customInput;
+    
+            printf("Please enter a '1' or '0' to add into your parent generation: \n");
+            scanf("%d", &customInput); 
+    
+            if (customInput==0 || customInput==1)
+            {
+                parent[i] = customInput;
+            }
+    
+            else
+            {
+                printf("Invalid input please wite '1' or '0' \n");
+                i--;
+            }
+        }
+    
+        printf("You typed: \n");
+        for(int i=0; i<customParentGenSize; i++)
+        {
+            printf("%d", parent[i]);
+        }
+        printf("\n");
+    }
+    if(chooseParentPopulation = true){
+
+    }
+
+
+
+    char childGen [generationSize];
     // we will have to add in the custom rule extension here
     char ruleArray [8] = {0,0,0,1,1,1,1,0};
-    for(int i = 0; i <= sizeOf(pParent); i++){
-        int rule = checkRules(pParent[i]);
+    for(int i = 0; i <= sizeof(parent); i++){
+        int rule = checkRules(parent[i]);
         childGen[i] = ruleArray[rule];
     }
 }
+
+int intToBinary(){
+    int number;
+    int remainder;
+    int binary[8];
+    int counter = 0;
+    do{
+        printf("Please enter an integer\n");
+        scanf("%d", &number);
+    }while(number > 256);
+    remainder = number;
+    for (int i = 128; i>0 ; i=i/2){
+        if (remainder >= i){
+            printf("1");
+            binary[counter] = 1;
+            remainder = remainder % i;
+        }
+        else{
+            printf("0");
+            binary[counter] = 0;
+        }
+        counter ++;
+    }
+    return 0;
+}
+
 
 int indexRight(int index, int generationSize){
     if(index == generationSize-1){
@@ -47,7 +113,7 @@ int indexLeft(int index, int generationSize){
     }
 }
 
-int checkRules(char[] parentGen){
+int checkRules(char[50] parentGen){
     if(parentGen == NULL){
         printf("error, null parent generation");
     }
@@ -77,15 +143,12 @@ int checkRules(char[] parentGen){
     }
 }
 
-void printArray(int generationSizel, char [] currentGen){
+void printArray(int generationSizel, char [50] currentGen){
     for(i==0;i<generationSize;i++){
         printf("%c", currentGen[i]);
     }
 }
 
-int binaryToInteger();
-int customParent();
-int saveOutput();
 
 int main (void)
 {
@@ -168,82 +231,52 @@ int binaryToInteger()
 //This function should save the output of your program to a text file on disk, 
 int saveOutput ()
 {
+    return 0;
+    //if (<name of array> == NULL)
+    //  printf("An error occured.\n");
+    /*
+    printf("Please enter a name for the file you want to save the output as: \n");
+    
+    FILE *fp;
+    fp = fopen(OutputFile, "w");
 
-	//if (<name of array> == NULL)
-	//	printf("An error occured.\n");
+    if (fp !=NULL)
+    {
+        
+        char c ='#';
+        char c2 = '\n';
 
-	printf("Please enter a name for the file you want to save the output as: \n");
-	
-	FILE *fp;
-	fp = fopen(OutputFile, "w");
+        while()//<array that we're using> != NULL)
+        {
+        
+        //write the trackName to the file   
+        //fputs(temp->trackName, fp);
+        //write #
+        fputc(c,fp);
+        //write trackLength to the file
+        //fprintf(fp, "%d", temp->trackLength);
+        //write #
+        fputc(c,fp);
+        //new line
+        fputc(c2, fp);
 
-	if (fp !=NULL)
-	{
-		
-		char c ='#';
-		char c2 = '\n';
+        //temp= temp->next;
+        }
+    }
 
-		while()//<array that we're using> != NULL)
-		{
-		
-		//write the trackName to the file	
-		//fputs(temp->trackName, fp);
-		//write #
-		fputc(c,fp);
-		//write trackLength to the file
-		//fprintf(fp, "%d", temp->trackLength);
-		//write #
-		fputc(c,fp);
-		//new line
-		fputc(c2, fp);
-
-		//temp= temp->next;
-		}
-	}
-
-	//close file
-	fclose(fp);
-
+    //close file
+    fclose(fp);
+*/
 }
 
 
-char customParent()
+int customParent()
 {
-	int customParentGenSize;
-	printf("Please enter the size of the custom parent generation you would like: \n");
-	scanf("%d", &customParentGenSize); 
+    int customParentGenSize;
+    printf("Please enter the size of the custom parent generation you would like: \n");
+    scanf("%d", &customParentGenSize); 
+    return customParentGenSize;
 
-	int parent[customParentGenSize];
-
-	for(int i=0; i<customParentGenSize; i++)
-	{
-		int customInput;
-
-		printf("Please enter a '1' or '0' to add into your parent generation: \n");
-		scanf("%d", &customInput); 
-
-		if (customInput==0 || customInput==1)
-		{
-			parent[i] = customInput;
-		}
-
-		else
-		{
-			printf("Invalid input please wite '1' or '0' \n");
-			i--;
-		}
-	}
-
-	printf("You typed: \n");
-	for(int i=0; i<customParentGenSize; i++)
-	{
-		printf("%d", parent[i]);
-	}
-	printf("\n");
-
-    char *pPointer = parent;
-    return pPointer;
-
-	//OY LUKE, YOU MIGHT NEED A RETURN STATEMENT HERE TO IMPLEMENT THIS INTO THE BASE XOXO
+    //OY LUKE, YOU MIGHT NEED A RETURN STATEMENT HERE TO IMPLEMENT THIS INTO THE BASE XOXO
     // THANKS JOSH I HAVE SEEN THIS, ROGER ROGER!
 }
