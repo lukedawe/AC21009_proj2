@@ -17,6 +17,9 @@ Fergus:
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
 int checkRules();
 int binaryToInteger();
 int customParent();
@@ -26,45 +29,36 @@ int saveOutput();
 int generateNewGen (int generationSize){
     bool chooseParentSize;
     bool chooseParentPopulation;
-    if(chooseParentSize = true){
-        int parent[customParentGenSize];
-        for(int i=0; i<customParentGenSize; i++)
+    int parent[generationSize];
+    if(chooseParentSize = true){  
+        for(int i=0; i<generationSize; i++)
         {
             int customInput;
-    
             printf("Please enter a '1' or '0' to add into your parent generation: \n");
             scanf("%d", &customInput); 
-    
             if (customInput==0 || customInput==1)
             {
                 parent[i] = customInput;
             }
-    
             else
             {
                 printf("Invalid input please wite '1' or '0' \n");
                 i--;
             }
         }
-    
         printf("You typed: \n");
-        for(int i=0; i<customParentGenSize; i++)
+        for(int i=0; i<generationSize; i++)
         {
             printf("%d", parent[i]);
         }
         printf("\n");
     }
-    if(chooseParentPopulation = true){
-
-    }
-
-
 
     char childGen [generationSize];
     // we will have to add in the custom rule extension here
     char ruleArray [8] = {0,0,0,1,1,1,1,0};
-    for(int i = 0; i <= sizeof(parent); i++){
-        int rule = checkRules(parent[i]);
+    for(int i = 0; i <= generationSize; i++){
+        int rule = checkRules(i, generationSize, parent);
         childGen[i] = ruleArray[rule];
     }
 }
@@ -113,7 +107,7 @@ int indexLeft(int index, int generationSize){
     }
 }
 
-int checkRules(char[50] parentGen){
+int checkRules(char parentGen [], int i, int generationSize){
     if(parentGen == NULL){
         printf("error, null parent generation");
     }
@@ -143,8 +137,8 @@ int checkRules(char[50] parentGen){
     }
 }
 
-void printArray(int generationSizel, char [50] currentGen){
-    for(i==0;i<generationSize;i++){
+void printArray(int generationSize, char currentGen []){
+    for(int i=0;i<generationSize;i++){
         printf("%c", currentGen[i]);
     }
 }
