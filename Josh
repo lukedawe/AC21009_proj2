@@ -57,23 +57,20 @@ int generateNewGen (int generationSize){
 
 
     // we will have to add in the custom rule extension here
-    char ruleArray [9] = "00011110"; //{0,0,0,1,1,1,1,0,NULL};
+    int ruleArray [8] = {0,0,0,1,1,1,1,0};
     int rule;
-    char childGen [generationSize];
-    for (int c = 0; c < 22; c++){
+    int childGen [generationSize];
+    for (int c = 0; c < 6000; c++){
         for(int i = 0; i < generationSize; i++){
             rule = checkRules(parent, i, generationSize);
             childGen[i] = ruleArray[rule];
         }
         printArray(generationSize, childGen);
         printf("\n");
-        /*
         for(int i = 0; i<generationSize; i++){
             parent[i] = childGen[i];
-            childGen[i] = 0;
         }
-        */
-        memcpy(parent, childGen, sizeof(parent));
+        //memcpy(parent, childGen, sizeof(parent));
     }
 }
 
@@ -121,7 +118,7 @@ int indexLeft(int index, int generationSize){
     }
 }
 
-int checkRules(char parentGen [], int i, int generationSize){
+int checkRules(int parentGen [], int i, int generationSize){
     if(parentGen == NULL){
         printf("error, null parent generation");
     }
@@ -151,9 +148,19 @@ int checkRules(char parentGen [], int i, int generationSize){
     }
 }
 
-void printArray(int generationSize, char currentGen []){
+void printArray(int generationSize, int currentGen []){
     for(int i = 0; i < generationSize; i++){
-        printf("%c", currentGen[i]);
+        if(currentGen == NULL){
+            printf("Current generation is null")
+            return;
+        }
+        printf("%d", currentGen[i]);
+        FILE *fp;
+        char OutputFile [] = "big_man_big_van.txt";
+        fp = fopen(OutputFile,"w");
+        if (fp != NULL){
+            
+        }
     }
 }
 
