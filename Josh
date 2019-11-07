@@ -19,12 +19,13 @@ Fergus:
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include<string.h>
 
 int checkRules();
 int binaryToInteger();
 int customParent();
 int saveOutput();
-
+void printArray();
 
 int generateNewGen (int generationSize){
     bool chooseParentSize;
@@ -54,12 +55,25 @@ int generateNewGen (int generationSize){
         printf("\n");
     }
 
-    char childGen [generationSize];
+
     // we will have to add in the custom rule extension here
-    char ruleArray [8] = {0,0,0,1,1,1,1,0};
-    for(int i = 0; i <= generationSize; i++){
-        int rule = checkRules(i, generationSize, parent);
-        childGen[i] = ruleArray[rule];
+    char ruleArray [9] = "00011110"; //{0,0,0,1,1,1,1,0,NULL};
+    int rule;
+    char childGen [generationSize];
+    for (int c = 0; c < 22; c++){
+        for(int i = 0; i < generationSize; i++){
+            rule = checkRules(parent, i, generationSize);
+            childGen[i] = ruleArray[rule];
+        }
+        printArray(generationSize, childGen);
+        printf("\n");
+        /*
+        for(int i = 0; i<generationSize; i++){
+            parent[i] = childGen[i];
+            childGen[i] = 0;
+        }
+        */
+        memcpy(parent, childGen, sizeof(parent));
     }
 }
 
@@ -112,33 +126,33 @@ int checkRules(char parentGen [], int i, int generationSize){
         printf("error, null parent generation");
     }
     if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 1){
-        return 1;
+        return 0;
     }
     if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 0){
-        return 2;
+        return 1;
     }
     if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 1){
-        return 3;
+        return 2;
     }
     if(parentGen[indexLeft(i,generationSize)] == 1 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 0){
-        return 4;
+        return 3;
     }   
     if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 1){
-        return 5;
+        return 4;
     }
     if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 1 && parentGen[indexRight(i,generationSize)] == 0){
-        return 6;
+        return 5;
     }
     if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 1){
-        return 7;
+        return 6;
     }
     if(parentGen[indexLeft(i,generationSize)] == 0 && parentGen[i] == 0 && parentGen[indexRight(i,generationSize)] == 0){
-        return 8;
+        return 7;
     }
 }
 
 void printArray(int generationSize, char currentGen []){
-    for(int i=0;i<generationSize;i++){
+    for(int i = 0; i < generationSize; i++){
         printf("%c", currentGen[i]);
     }
 }
@@ -179,7 +193,8 @@ int main (void)
 
             case 3:
                 printf("Select or Create the First Generation\n");
-                customParent();
+                int genSize = customParent();
+                generateNewGen(genSize);
                 break;
 
             case 0:
