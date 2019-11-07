@@ -27,9 +27,16 @@ int customParent();
 int saveOutput();
 void printArray();
 
+bool validateBinaryInput(int input){
+    while (input != 1 && input != 0){
+        printf("Please enter a valid input");
+    }
+    return true;
+}
+
 int generateNewGen (int generationSize, int noOfGenerations){
     bool chooseParentSize;
-    bool chooseParentPopulation;
+    bool customRule;
     int parent[generationSize];
     if(chooseParentSize = true){  
         for(int i=0; i<generationSize; i++)
@@ -55,6 +62,23 @@ int generateNewGen (int generationSize, int noOfGenerations){
         printf("\n");
         printf("\n");
     }
+
+    if (customRule = true){
+        int ruleSet [8];
+        for(int i=0; i<8; i++){
+            int input;
+            printf("Please enter a '1' or '0' to add your custom rule \n");
+            scanf("%d", &input); 
+            if (input==0 || input==1){
+                ruleSet[i] = input;
+            }
+            else{
+                printf("Invalid input please wite '1' or '0' \n");
+                i--;
+            }
+        }
+    }
+    
     // we will have to add in the custom rule extension here
     int ruleArray [8] = {0,0,0,1,1,1,1,0};
     int rule;
@@ -97,7 +121,7 @@ int intToBinary(){
     do{
         printf("Please enter an integer\n");
         scanf("%d", &number);
-    }while(number > 256);
+    }while(number > 256 || number < 0);
     remainder = number;
     for (int i = 128; i>0 ; i=i/2){
         if (remainder >= i){
@@ -185,11 +209,9 @@ int askNoOfGenerations(){
 int main (void)
 {
     int option;
-
     printf("\n");
     printf("        Welcome to Cellular Automata\n");
     printf("------------------------------------------\n\n");
-
 
     do
     {
@@ -201,10 +223,8 @@ int main (void)
         printf("0. Quit.\n");
         scanf("%d",&option);
 
-
         switch(option)
         {
-
             case 1:
                 printf("Converting binary to decimal...\n");
                 binaryToInteger();
@@ -230,7 +250,6 @@ int main (void)
                 printf("Invalid input, please enter a number between \n");
                 break;
         }
-
     }while(option != 0);
 
 }
@@ -260,57 +279,10 @@ int binaryToInteger()
 
 }
 
-
-
-//This function should save the output of your program to a text file on disk, 
-int saveOutput ()
-{
-    return 0;
-    //if (<name of array> == NULL)
-    //  printf("An error occured.\n");
-    /*
-    printf("Please enter a name for the file you want to save the output as: \n");
-    
-    FILE *fp;
-    fp = fopen(OutputFile, "w");
-
-    if (fp !=NULL)
-    {
-        
-        char c ='#';
-        char c2 = '\n';
-
-        while()//<array that we're using> != NULL)
-        {
-        
-        //write the trackName to the file   
-        //fputs(temp->trackName, fp);
-        //write #
-        fputc(c,fp);
-        //write trackLength to the file
-        //fprintf(fp, "%d", temp->trackLength);
-        //write #
-        fputc(c,fp);
-        //new line
-        fputc(c2, fp);
-
-        //temp= temp->next;
-        }
-    }
-
-    //close file
-    fclose(fp);
-*/
-}
-
-
 int customParent()
 {
     int customParentGenSize;
     printf("Please enter the size of the custom parent generation you would like: \n");
     scanf("%d", &customParentGenSize); 
     return customParentGenSize;
-
-    //OY LUKE, YOU MIGHT NEED A RETURN STATEMENT HERE TO IMPLEMENT THIS INTO THE BASE XOXO
-    // THANKS JOSH I HAVE SEEN THIS, ROGER ROGER!
 }
