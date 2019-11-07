@@ -27,7 +27,7 @@ int customParent();
 int saveOutput();
 void printArray();
 
-int generateNewGen (int generationSize){
+int generateNewGen (int generationSize, int noOfGenerations){
     bool chooseParentSize;
     bool chooseParentPopulation;
     int parent[generationSize];
@@ -53,25 +53,40 @@ int generateNewGen (int generationSize){
             printf("%d", parent[i]);
         }
         printf("\n");
+        printf("\n");
     }
-
-
     // we will have to add in the custom rule extension here
     int ruleArray [8] = {0,0,0,1,1,1,1,0};
     int rule;
     int childGen [generationSize];
-    for (int c = 0; c < 6000; c++){
+    char OutputFile [] = "big_man_big_van.txt";
+    FILE *fp;
+    fp = fopen(OutputFile,"w");
+    for (int c = 0; c < noOfGenerations; c++){
         for(int i = 0; i < generationSize; i++){
             rule = checkRules(parent, i, generationSize);
             childGen[i] = ruleArray[rule];
         }
-        printArray(generationSize, childGen);
-        printf("\n");
-        for(int i = 0; i<generationSize; i++){
-            parent[i] = childGen[i];
+        if(parent == NULL){
+                printf("Current generation is null");
+                return 0;
         }
-        //memcpy(parent, childGen, sizeof(parent));
+        else{
+            if (fp != NULL){
+                for(int p = 0; p < generationSize; p++){
+                            fprintf(fp, "%d", parent[p]);
+                  
+                }
+                fprintf(fp, "\n");
+            }
+            else{
+                printf("File did not open");
+            }
+        }
+        printArray(generationSize, parent);
+        memcpy(parent, childGen, sizeof(parent));
     }
+    fclose(fp);
 }
 
 int intToBinary(){
@@ -149,19 +164,21 @@ int checkRules(int parentGen [], int i, int generationSize){
 }
 
 void printArray(int generationSize, int currentGen []){
-    for(int i = 0; i < generationSize; i++){
-        if(currentGen == NULL){
-            printf("Current generation is null")
+    if(currentGen == NULL){
+            printf("Current generation is null");
             return;
         }
+    for(int i = 0; i < generationSize; i++){
         printf("%d", currentGen[i]);
-        FILE *fp;
-        char OutputFile [] = "big_man_big_van.txt";
-        fp = fopen(OutputFile,"w");
-        if (fp != NULL){
-            
-        }
     }
+    printf("\n");
+}
+
+int askNoOfGenerations(){
+    int noOfGenerations;
+    printf("Please enter the number of generations you would like to produce \n");
+    scanf("%d", &noOfGenerations); 
+    return noOfGenerations;
 }
 
 
@@ -179,7 +196,7 @@ int main (void)
         printf("Please enter an option from the main menu: \n");
         printf("Main Menu\n");
         printf("1. Convert Binary to Decimal\n");
-        printf("2. Save to a file\n");
+        printf("2. \n");
         printf("3. Select or Create the First Generation\n");
         printf("0. Quit.\n");
         scanf("%d",&option);
@@ -194,14 +211,15 @@ int main (void)
                 break;
 
             case 2:
-                printf("Saving the output to 'OutputFile'...\n ");
+                printf(".\n ");
                // saveOutput();
                 break;
 
             case 3:
                 printf("Select or Create the First Generation\n");
                 int genSize = customParent();
-                generateNewGen(genSize);
+                int noOfGenerations = askNoOfGenerations();
+                generateNewGen(genSize, noOfGenerations);
                 break;
 
             case 0:
