@@ -31,12 +31,16 @@ bool validateBinaryInput(int input){
     while (input != 1 && input != 0){
         printf("Please enter a valid input");
     }
-    return true;
+    if(input = 1){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
-int generateNewGen (int generationSize, int noOfGenerations){
+int generateNewGen (int generationSize, int noOfGenerations, bool customRule){
     bool chooseParentSize;
-    bool customRule;
     int parent[generationSize];
     if(chooseParentSize = true){  
         for(int i=0; i<generationSize; i++)
@@ -239,7 +243,11 @@ int main (void)
                 printf("Select or Create the First Generation\n");
                 int genSize = customParent();
                 int noOfGenerations = askNoOfGenerations();
-                generateNewGen(genSize, noOfGenerations);
+                printf("Do you want to make a custom rule?");
+                int input;
+                scanf("%d", &input);
+                bool customRule = validateBinaryInput(input);
+                generateNewGen(genSize, noOfGenerations, customRule);
                 break;
 
             case 0:
