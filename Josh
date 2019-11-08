@@ -31,7 +31,7 @@ void chooseParentSize();
 
 bool validateBinaryInput(int input){
     while (input != 1 && input != 0){
-        printf("Please enter a valid input");
+        printf("Please enter a valid input\n");
         scanf("%d", &input);
     }
     if(input == 1){
@@ -138,7 +138,7 @@ int intToBinary(){
     int binary[8];
     int counter = 0;
     do{
-        printf("Please enter an integer\n");
+        printf("Please enter an integer less than 256\n");
         scanf("%d", &number);
     }while(number > 256 || number < 0);
     remainder = number;
@@ -154,6 +154,7 @@ int intToBinary(){
         }
         counter ++;
     }
+    printf("\n");
     return 0;
 }
 
@@ -219,8 +220,13 @@ void printArray(int generationSize, int currentGen []){
 
 int askNoOfGenerations(){
     int noOfGenerations;
-    printf("Please enter the number of generations you would like to produce \n");
-    scanf("%d", &noOfGenerations); 
+
+    do
+    {
+        printf("Please enter the number of generations you would like to produce (above 0) \n");
+        scanf("%d", &noOfGenerations); 
+    }while(noOfGenerations<1);
+    
     return noOfGenerations;
 }
 
@@ -237,8 +243,8 @@ int main (void)
         printf("Please enter an option from the main menu: \n");
         printf("Main Menu\n");
         printf("1. Convert Binary to Decimal\n");
-        printf("2. \n");
-        printf("3. Select or Create the First Generation\n");
+        printf("2. Convert Deciaml to Binary\n");
+        printf("3. Run Automaton\n");
         printf("0. Quit.\n");
         scanf("%d",&option);
 
@@ -250,15 +256,15 @@ int main (void)
                 break;
 
             case 2:
-                printf(".\n ");
-               // saveOutput();
+                printf("Converting decimal to binary...\n");
+                intToBinary();
                 break;
 
             case 3:
-                printf("Select or Create the First Generation\n");
+                printf("Create the First Generation\n");
                 int genSize = customParent();
                 int noOfGenerations = askNoOfGenerations();
-                printf("Do you want to make a custom rule?");
+                printf("Do you want to make a custom rule? ('1' is yes, '0' is no)\n");
                 int input;
                 scanf("%d", &input);
                 bool customRule = validateBinaryInput(input);
@@ -305,7 +311,13 @@ int binaryToInteger()
 int customParent()
 {
     int customParentGenSize;
-    printf("Please enter the size of the custom parent generation you would like: \n");
+
+    do
+    {
+    printf("Please enter the size of the custom parent generation you would like (above 0): \n");
     scanf("%d", &customParentGenSize); 
+
+    }while(customParentGenSize<1);
+   
     return customParentGenSize;
 }
